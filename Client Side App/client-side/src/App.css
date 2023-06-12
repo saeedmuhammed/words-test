@@ -1,0 +1,17 @@
+
+li {
+
+padding: 15px 20px;
+background-color: white;
+cursor: pointer;
+border-radius: 25px;
+
+}
+li:hover {
+  background-color: rgba(0,77,137,255);
+  color: white;
+}
+.card {
+  background-image: url("../../14731376_rm222batch5-mind-03.jpg");
+  background-size: cover; 
+}
