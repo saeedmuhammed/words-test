@@ -12,7 +12,9 @@ module.exports = {
     },
     extend: {
       colors: {
-        'main-color':'rgba(0,77,137,255)',
+        'main-color':'#004d89',
+        'right-answer':'#07bc0d',  
+        'wrong-answer':'#e84c3d', 
         
       }
     },
