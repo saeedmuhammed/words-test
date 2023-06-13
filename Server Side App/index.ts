@@ -5,7 +5,11 @@ import express = require("express");
 
 const { wordList, scoresList } = require('./TestData.json');
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
+
+//To allow API accepts requests from the same domain or origin "localhost" 
+const cors = require('cors');
+app.use(cors());
 
 //type for the word object
 type word = {

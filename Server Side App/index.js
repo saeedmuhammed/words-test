@@ -3,7 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var _a = require('./TestData.json'), wordList = _a.wordList, scoresList = _a.scoresList;
 var app = express();
-var PORT = 3000;
+var PORT = 3001;
+//To allow API accepts requests from localhost 
+var cors = require('cors');
+app.use(cors());
 //resopnse for parsing the JSON data in the request body
 app.use(express.json());
 app.get('/words', function (req, res) {
