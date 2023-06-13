@@ -8,10 +8,9 @@ border-radius: 25px;
 
 }
 li:hover {
-  background-color: rgba(0,77,137,255);
-  color: white;
+  outline: 2px solid rgba(0,77,137,255);
 }
 .card {
-  background-image: url("../../14731376_rm222batch5-mind-03.jpg");
+  background-image: url("Assets/14731376_rm222batch5-mind-03.jpg");
   background-size: cover; 
 }
