@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import EndPage from "./EndPage";
+
+//import axios to fetch the words from the server
 import axios from "axios";
+
+//import toast to alert the user
 import { toast } from "react-toastify";
 
 export default function QuizPage() {
   const [isFinished, setIsFinished] = useState(false);
   const [words, setWords] = useState([]);
   const [currentWord, setCurrentWord] = useState(0);
-  const [choosenItem, setChoosenItem] = useState(null);
+  const [chosenItem, setChosenItem] = useState(null);
   const [rightAnswer, setRightAnswer] = useState(0);
   const [wrongAnswer, setWrongAnswer] = useState(0);
   const [progress, setProgress] = useState(0);
   const [score, setScore] = useState(0);
 
+  //fetch the words from the server
   async function getWords() {
     try {
       const { data } = await axios.get("http://localhost:3001/words");
@@ -25,24 +30,34 @@ export default function QuizPage() {
   useEffect(() => {
     getWords();
   }, []);
+  //calculate the score and the progress on the changes of the right and wrong answers to make the up to date
+  useEffect(() => {
+    calculateScore();
+    calculateProgress();
+  }, [rightAnswer, wrongAnswer]);
 
+  //handel the click on the li item
   const handelClick = (e) => {
-    setChoosenItem(e.target);
+    setChosenItem(e.target);
     removeColorFromLi();
-    e.target.classList.add("bg-main-color");
-    e.target.classList.add("text-white");
+    //add the color to the chosen item
+    e.target.classList.add("bg-main-color", "text-white");
   };
 
+  //handel the click on the submit button to check the answer
   const checkAnswer = (e) => {
-    if (choosenItem.dataset.value === words[currentWord]?.pos) {
+    //rihgt answer
+    if (chosenItem.dataset.value === words[currentWord]?.pos) {
       setRightAnswer(rightAnswer + 1);
       //alert user that he is right
-      choosenItem.classList.add("bg-right-answer");
+      chosenItem.classList.add("bg-right-answer");
       toast.success("Right Answer !", { autoClose: 500, theme: "colored" });
-    } else {
+    }
+    //wrong answer
+    else {
       setWrongAnswer(wrongAnswer + 1);
       //aletr user that he is wrong
-      choosenItem.classList.add("bg-wrong-answer");
+      chosenItem.classList.add("bg-wrong-answer");
       toast.error("Wrong Answer !", { autoClose: 500, theme: "colored" });
     }
 
@@ -55,8 +70,10 @@ export default function QuizPage() {
       setTimeout(() => {
         setIsFinished(true);
       }, 1000);
-    } else {
-      setChoosenItem("");
+    }
+    //move to the next word after 1.5s to make sure the user see the feedback
+    else {
+      setChosenItem("");
       toggleLiItems();
       setTimeout(() => {
         removeColorFromLi();
@@ -65,10 +82,6 @@ export default function QuizPage() {
       }, 1500);
     }
   };
-  useEffect(() => {
-    calculateScore();
-    calculateProgress();
-  }, [rightAnswer, wrongAnswer]);
 
   const calculateScore = () => {
     setScore((rightAnswer / words.length) * 100);
@@ -90,6 +103,7 @@ export default function QuizPage() {
       )
     );
   };
+  //disable the li items to prevent the user from clicking on them while checking the answer
   const toggleLiItems = () => {
     const allLi = document.querySelectorAll("li");
     allLi.forEach((li) => li.classList.toggle("pointer-events-none"));
@@ -132,7 +146,7 @@ export default function QuizPage() {
       <button
         className="bg-main-color text-white py-3 px-16 rounded-3xl"
         onClick={checkAnswer}
-        disabled={!choosenItem}
+        disabled={!chosenItem}
       >
         Check
       </button>

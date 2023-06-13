@@ -1,5 +1,7 @@
 import "./App.css";
 import StartPage from "./Pages/StartPage";
+
+//import toastify to show toast messages
 import {ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function App() {
