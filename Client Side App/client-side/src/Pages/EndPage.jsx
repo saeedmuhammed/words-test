@@ -23,7 +23,7 @@ export default function EndPage({ score }) {
 
   useEffect(() => {
     getRank();
-  }, []);
+  }, );
 
   return (
     <div className="m-auto pt-5">

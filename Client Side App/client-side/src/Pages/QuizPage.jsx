@@ -30,11 +30,12 @@ export default function QuizPage() {
   useEffect(() => {
     getWords();
   }, []);
-  //calculate the score and the progress on the changes of the right and wrong answers to make the up to date
+
+  //calculate the score and the progress when the component did mount to affect the progress bar cuz the update of the state is async
   useEffect(() => {
     calculateScore();
     calculateProgress();
-  }, [rightAnswer, wrongAnswer]);
+  }, );
 
   //handel the click on the li item
   const handelClick = (e) => {
@@ -92,6 +93,7 @@ export default function QuizPage() {
       setProgress(((rightAnswer + wrongAnswer) / words.length) * 100);
     }
   };
+
   const removeColorFromLi = () => {
     const allLi = document.querySelectorAll("li");
     allLi.forEach((li) =>
